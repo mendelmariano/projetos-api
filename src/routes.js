@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import ProfileController from './app/controllers/ProfileController';
+import ProjectController from './app/controllers/ProjectController';
 import SessionController from './app/controllers/SessionController';
 import UserController from './app/controllers/UserController';
 
@@ -27,5 +28,11 @@ routes.get('/profiles', ProfileController.index);
 routes.get('/profiles/users/:id', ProfileController.searchUsersForId);
 routes.get('/profiles/:id', ProfileController.searchById);
 routes.delete('/profiles/:id', ProfileController.delete);
+
+// Resource de projects
+routes.get('/projects', ProjectController.index);
+routes.get('/projects/users/:id', ProjectController.searchUsersForId);
+routes.get('/projects/:id', ProjectController.searchById);
+routes.delete('/projects/:id', ProjectController.delete);
 
 export default routes;
