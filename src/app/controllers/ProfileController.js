@@ -45,8 +45,7 @@ class ProfileController {
             return res.status(400).json({ error: 'falha na validação' });
         }
 
-        const profile = await Profile.findByPk(req.profileId);
-
+        const profile = await Profile.findByPk(req.params.id);
         // Verifica se o email já existe na base de dados
 
         const profileExist = await Profile.findOne({
@@ -92,9 +91,9 @@ class ProfileController {
     }
 
     async delete(req, res) {
-        const { profile_id } = req.params;
+        const { id } = req.params;
 
-        const profile = await Profile.findByPk(profile_id);
+        const profile = await Profile.findByPk(id);
 
         if (!profile) {
             return res.status(400).json({ error: 'Perfil não existe. ' });

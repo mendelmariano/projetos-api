@@ -2,7 +2,6 @@
 import * as Yup from 'yup';
 
 import Project from '../models/Project';
-import User from '../models/User';
 
 class ProjectController {
     async index(req, res) {
@@ -45,7 +44,7 @@ class ProjectController {
             return res.status(400).json({ error: 'falha na validação' });
         }
 
-        const project = await Project.findByPk(req.projectId);
+        const project = await Project.findByPk(req.params.id);
 
         // Verifica se o projeto já existe na base de dados
 
@@ -76,25 +75,10 @@ class ProjectController {
         return res.json(project);
     }
 
-    async searchUsersForId(req, res) {
+    async delete(req, res) {
         const { id } = req.params;
 
-        const project = await Project.findOne({
-            where: { id },
-            include: User,
-        });
-
-        if (!project) {
-            return res.status(400).json({ error: 'Projeto não existe. ' });
-        }
-
-        return res.json(project);
-    }
-
-    async delete(req, res) {
-        const { project_id } = req.params;
-
-        const project = await Project.findByPk(project_id);
+        const project = await Project.findByPk(id);
 
         if (!project) {
             return res.status(400).json({ error: 'Projeto não existe. ' });
