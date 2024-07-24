@@ -21,6 +21,7 @@ routes.put('/users/google/:id', UserController.updateGoogle);
 // Todas as rotas abaixo precisam estar autenticadas
 routes.use(authMiddleware);
 routes.put('/users', UserController.update);
+routes.get('/users/logged', UserController.userLogged);
 routes.put('/users/:id', UserController.updateSomeone);
 routes.get('/users/:id', UserController.searchById);
 routes.get('/users/paginate/index/:page', UserController.index);

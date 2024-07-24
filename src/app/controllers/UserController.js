@@ -2,8 +2,8 @@
 import * as Yup from 'yup';
 
 import { Op } from 'sequelize';
-import User from '../models/User';
 import Profile from '../models/Profile';
+import User from '../models/User';
 
 class UserController {
     async index(req, res) {
@@ -144,6 +144,24 @@ class UserController {
             email,
             profile_id,
         });
+    }
+
+    async userLogged(req, res) {
+        const id = req.userId;
+        const user = await User.findByPk(id, {
+            include: [
+                {
+                    model: Profile,
+                    as: 'profile',
+                },
+            ],
+        });
+
+        if (!user) {
+            return res.status(400).json({ error: 'Usuário não existe. ' });
+        }
+
+        return res.json(user);
     }
 
     async searchById(req, res) {
